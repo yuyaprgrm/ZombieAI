@@ -19,6 +19,9 @@ class UpdateTask extends Task {
         $this->main = $main;
         $this->player = $player;
 
+        $this->value = 10;
+        
+
         $this->root = $root;
         $this->xz = [$sx, $sz];
         $this->y = $y;
@@ -74,7 +77,7 @@ class UpdateTask extends Task {
             $this->root = $exp->exploration();
             $this->count = 0;
 
-            if($this->root === null){
+            if($this->root === null || (floor($this->xz[0]) == floor($this->player->x) && floor($this->xz[1]) == floor($this->player->z))){
                 $id = $this->getTaskId();
                 $this->main->getServer()->getScheduler()->cancelTask($id);
             }
@@ -82,11 +85,15 @@ class UpdateTask extends Task {
             return 0;
         }
 
-        if($this->count > 10) {
+        if($this->count > $this->value) {
+            
             $exp = new RootExplorer($this->player->level, [$this->xz[0], $this->xz[1]], [floor($this->player->x), floor($this->player->z)], $this->y);
             if(($r = $exp->exploration()) !== null ){
                 $this->count = 0;
                 $this->root = $r;
+                $this->value = 10;
+            }else{
+                $this->value += 20;
             }
             return 0;
         }
