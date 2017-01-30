@@ -22,11 +22,11 @@ class RootExplorer {
         $roots[] = new Root($start[0], $start[1]);
 
         // var_dump($roots, $roots[0]->getNowXZ());
-        $sx = min($start[0], $end[0])-30;
-        $sz = min($start[1], $end[1])-30;
+        $sx = min($start[0], $end[0])-60;
+        $sz = min($start[1], $end[1])-60;
 
-        $ex = max($start[0], $end[0])+30;
-        $ez = max($start[1], $end[1])+30;
+        $ex = max($start[0], $end[0])+60;
+        $ez = max($start[1], $end[1])+60;
 
         for($x = $sx; $x <= $ex; $x++) {
             

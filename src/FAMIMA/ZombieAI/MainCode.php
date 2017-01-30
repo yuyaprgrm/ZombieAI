@@ -18,11 +18,11 @@ class MainCode extends PluginBase {
 
             case "spawnmob":
             // var_dump($sender->x, $sender->z);
-            $exp = new RootExplorer($sender->level, [256, 256], [floor($sender->x), floor($sender->z)], floor($sender->y));
+            $exp = new RootExplorer($sender->level, [256, 256], [floor($sender->x), floor($sender->z)], floor($sender->y), $sender);
             $root = $exp->exploration();
 
             if($root !== null) {
-                $task = new UpdateTask($this, $sender->level, $root, 256, 256, floor($sender->y));
+                $task = new UpdateTask($this, $sender->level, $root, 256, 256, floor($sender->y), $sender);
                 $this->getServer()->getScheduler()->scheduleRepeatingTask($task, 1);
             }
         }

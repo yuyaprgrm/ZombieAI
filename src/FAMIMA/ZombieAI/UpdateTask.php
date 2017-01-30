@@ -15,8 +15,9 @@ class UpdateTask extends Task {
 
     private $count = 0;
     
-    public function __construct($main, $level, $root, $sx, $sz, $y) {
+    public function __construct($main, $level, $root, $sx, $sz, $y, $player) {
         $this->main = $main;
+        $this->player = $player;
 
         $this->root = $root;
         $this->xz = [$sx, $sz];
@@ -69,8 +70,21 @@ class UpdateTask extends Task {
         // var_dump($vxz);
         
         if($vxz === null){
-            $id = $this->getTaskId();
-            $this->main->getServer()->getScheduler()->cancelTask($id);
+            $exp = new RootExplorer($this->player->level, [$this->xz[0], $this->xz[1]], [floor($this->player->x), floor($this->player->z)], $this->y);
+            $this->root = $exp->exploration();
+
+            if($this->root === null){
+                $id = $this->getTaskId();
+                $this->main->getServer()->getScheduler()->cancelTask($id);
+            }
+
+            return 0;
+        }
+
+        if($this->count > 10) {
+            $this->count = 0;
+            $exp = new RootExplorer($this->player->level, [$this->xz[0], $this->xz[1]], [floor($this->player->x), floor($this->player->z)], $this->y);
+            $this->root = ($r = $exp->exploration()) === null ? $this->root : $r;
             return 0;
         }
 
