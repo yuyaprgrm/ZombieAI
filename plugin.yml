@@ -1,0 +1,9 @@
+name: ZombieAI
+main: FAMIMA\ZombieAI\MainCode
+author: FAMIMA
+api: [1.0.0, 2.0.0, 3.0.0]
+version: 1.0.0
+commands:
+  spawnmob:
+    description: "なし"
+    default: true
