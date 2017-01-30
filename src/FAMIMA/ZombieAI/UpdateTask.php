@@ -72,6 +72,7 @@ class UpdateTask extends Task {
         if($vxz === null){
             $exp = new RootExplorer($this->player->level, [$this->xz[0], $this->xz[1]], [floor($this->player->x), floor($this->player->z)], $this->y);
             $this->root = $exp->exploration();
+            $this->count = 0;
 
             if($this->root === null){
                 $id = $this->getTaskId();
