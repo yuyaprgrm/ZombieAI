@@ -83,9 +83,11 @@ class UpdateTask extends Task {
         }
 
         if($this->count > 10) {
-            $this->count = 0;
             $exp = new RootExplorer($this->player->level, [$this->xz[0], $this->xz[1]], [floor($this->player->x), floor($this->player->z)], $this->y);
-            $this->root = ($r = $exp->exploration()) === null ? $this->root : $r;
+            if(($r = $exp->exploration()) !== null ){
+                $this->count = 0;
+                $this->root = $r;
+            }
             return 0;
         }
 
